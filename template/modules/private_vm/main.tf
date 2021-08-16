@@ -27,7 +27,7 @@ resource "aws_instance" "example_vm" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "cloudify-private-vm"
+    Name = "cloudify-public-vm"
   }
 
   # Lookup the correct AMI based on the region
@@ -41,11 +41,6 @@ resource "aws_instance" "example_vm" {
   subnet_id = module.vpc.subnet_id
 
   user_data =   data.template_file.template.rendered
-}
-
-resource "aws_eip" "eip" {
-  instance = aws_instance.example_vm.id
-  vpc      = true
 }
 
 variable "filename" {
