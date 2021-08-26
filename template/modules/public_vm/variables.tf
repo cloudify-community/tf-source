@@ -38,3 +38,9 @@ variable "aws_amis" {
     eu-west-1 = "ami-0eee6eb870dc1cefa"
   }
 }
+
+variable "env_name" {
+    type = string
+    description = "Environment name"
+    default = "example"
+}

@@ -27,7 +27,7 @@ resource "aws_instance" "example_vm" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "cloudify-public-vm"
+    Name = "cloudify-private-${var.env_name}-vm"
   }
 
   # Lookup the correct AMI based on the region
