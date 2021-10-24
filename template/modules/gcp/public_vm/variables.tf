@@ -2,7 +2,6 @@
 variable "credentials_json" {
   type = string
   description = "Contents of a GCP JSON credentials file"
-  sensitive = true
 }
 
 variable "project" { 
