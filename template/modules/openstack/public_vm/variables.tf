@@ -3,7 +3,7 @@
 variable "credentials" {
   description = "OpenStack Application Credential (v3)"
   type = object({
-    application_name = string
+    application_id = string
     application_secret = string
   })
 }

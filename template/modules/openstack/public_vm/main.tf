@@ -9,7 +9,7 @@ terraform {
 
 provider "openstack" {
     auth_url = var.auth_url
-    application_credential_name = var.credentials.application_name
+    application_credential_id = var.credentials.application_id
     application_credential_secret = var.credentials.application_secret
     region = var.region
     insecure = var.auth_url_insecure
@@ -36,7 +36,7 @@ resource "openstack_networking_network_v2" "network" {
 
 resource "openstack_networking_subnet_v2" "subnet" {
   name       = "${var.prefix}-subnet-${random_id.suffix.hex}"
-  network_id = "${openstack_networking_network_v2.network.id}"
+  network_id = openstack_networking_network_v2.network.id
   cidr       = "192.168.100.0/24"
   ip_version = 4
 }
@@ -49,8 +49,8 @@ resource "openstack_networking_router_v2" "router" {
 
 # Attach the Router to the Network
 resource "openstack_networking_router_interface_v2" "router_iface" {
-  router_id = "${openstack_networking_router_v2.router.id}"
-  subnet_id = "${openstack_networking_subnet_v2.subnet.id}"
+  router_id = openstack_networking_router_v2.router.id
+  subnet_id = openstack_networking_subnet_v2.subnet.id
 }
 
 resource "openstack_networking_floatingip_v2" "public_ip" {
@@ -84,10 +84,10 @@ resource "openstack_compute_instance_v2" "vm" {
   name            = "${var.prefix}-vm-${random_id.suffix.hex}"
   flavor_name     = var.flavor
   key_pair        = openstack_compute_keypair_v2.kp.name
-  security_groups = ["default", "${openstack_compute_secgroup_v2.sg.name}"]
+  security_groups = ["default", openstack_compute_secgroup_v2.sg.name]
 
   block_device {
-    uuid                  = "${openstack_blockstorage_volume_v3.volume.id}"
+    uuid                  = openstack_blockstorage_volume_v3.volume.id
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
@@ -95,13 +95,13 @@ resource "openstack_compute_instance_v2" "vm" {
   }
 
   network {
-    uuid = "${openstack_networking_network_v2.network.id}"
+    uuid = openstack_networking_network_v2.network.id
   }
 }
 
 resource "openstack_compute_floatingip_associate_v2" "public_ip" {
-  floating_ip = "${openstack_networking_floatingip_v2.public_ip.address}"
-  instance_id = "${openstack_compute_instance_v2.vm.id}"
+  floating_ip = openstack_networking_floatingip_v2.public_ip.address
+  instance_id = openstack_compute_instance_v2.vm.id
 }
 
 output "public_ip" {
