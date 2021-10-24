@@ -9,10 +9,10 @@ variable "project" {
   description = "GCP project ID"
 }
 
-variable "region" {
-  type = string
-  description = "Region to launch servers"
-}
+# variable "region" {
+#   type = string
+#   description = "Region to launch servers"
+# }
 
 variable "zone" {
   type = string
