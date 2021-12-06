@@ -68,3 +68,6 @@ EOF
   }
 }
 
+output "foo" {
+  value = "bar"
+}
