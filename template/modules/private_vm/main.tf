@@ -63,3 +63,7 @@ EOF
   }
 }
 
+output "ip" {
+  value = aws_instance.example_vm.private_ip
+}
+

@@ -68,10 +68,6 @@ EOF
   }
 }
 
-output "subnet_id" {
-  value = module.vpc.subnet_id
-}
-
-output "group_ids" {
-  value = module.vpc.group_ids
+output "ip" {
+  value = aws_eip.eip.public_ip
 }
