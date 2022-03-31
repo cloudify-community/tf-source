@@ -1,38 +1,37 @@
 # Specify the provider and access details
 provider "aws" {
-  region = var.aws_region
+  region     = var.aws_region
   access_key = var.access_key
   secret_key = var.secret_key
 }
 
 module "vpc" {
   source = "../../"
-  
-  admin_user = var.admin_user
-  aws_zone = var.aws_zone
-  aws_region = var.aws_region
-  access_key = var.access_key
-  secret_key = var.secret_key
+
+  admin_user       = var.admin_user
+  aws_zone         = var.aws_zone
+  aws_region       = var.aws_region
+  access_key       = var.access_key
+  secret_key       = var.secret_key
   admin_key_public = var.admin_key_public
 }
 
 data "aws_ami" "centos" {
-owners      = ["125523088429"]
-most_recent = true
+  owners      = ["125523088429"]
+  most_recent = true
 
   filter {
-      name   = "name"
-      values = ["CentOS Linux 7 x86_64 HVM EBS *"]
+    name   = "name"
+    values = ["CentOS 7*"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
   }
 
   filter {
-      name   = "architecture"
-      values = ["x86_64"]
-  }
-
-  filter {
-      name   = "root-device-type"
-      values = ["ebs"]
+    name   = "root-device-type"
+    values = ["ebs"]
   }
 }
 
@@ -60,7 +59,7 @@ resource "aws_instance" "example_vm" {
   # Connect to subnet
   subnet_id = module.vpc.subnet_id
 
-  user_data =   data.template_file.template.rendered
+  user_data = data.template_file.template.rendered
 }
 
 resource "aws_eip" "eip" {
@@ -83,7 +82,7 @@ users:
       - $${admin_key_public}
 EOF
   vars = {
-    admin_user = var.admin_user
+    admin_user       = var.admin_user
     admin_key_public = var.admin_key_public
   }
 }
