@@ -31,7 +31,7 @@ resource "aws_route" "example_route" {
 
 # Security group for our application.
 resource "aws_security_group" "example_security_group" {
-  name        = "example_security_group"
+  name_prefix = "example_security_group-"
   description = "Security group for example application"
   vpc_id      = aws_vpc.example_vpc.id
 
@@ -90,6 +90,9 @@ resource "aws_security_group" "example_security_group" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
