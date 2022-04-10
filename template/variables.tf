@@ -18,16 +18,6 @@ variable "admin_key_public" {
   description = "Public SSH key of admin user"
 }
 
-variable "access_key" {
-  type = string
-  description = "Access key for AWS"
-}
-
-variable "secret_key" {
-  type = string
-  description = "Secret key for AWS"
-}
-
 variable "aws_amis" {
   type = map(string)
   default = {
