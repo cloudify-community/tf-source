@@ -12,3 +12,4 @@ variable "cluster_identifier" {
   type = string
   description = "Spot ocean cluster id"
 }
+
