@@ -16,6 +16,8 @@ module "vpc" {
   admin_key_public = var.admin_key_public
 }
 
+
+// Adding some data here.
 data "aws_ami" "centos" {
   owners      = ["125523088429"]
   most_recent = true
