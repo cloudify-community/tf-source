@@ -16,6 +16,25 @@ module "vpc" {
   admin_key_public = var.admin_key_public
 }
 
+data "aws_ami" "centos" {
+  owners      = ["125523088429"]
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["CentOS 7*"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+}
+
 resource "aws_instance" "example_vm" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
@@ -32,7 +51,7 @@ resource "aws_instance" "example_vm" {
 
   # Lookup the correct AMI based on the region
   # we specified
-  ami = lookup(var.aws_amis, var.aws_region)
+  ami = data.aws_ami.centos.id
 
   # Our Security group to allow HTTP and SSH access
   vpc_security_group_ids = module.vpc.group_ids
