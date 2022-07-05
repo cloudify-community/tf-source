@@ -3,6 +3,7 @@ provider "aws" {
   region     = var.aws_region
   access_key = var.access_key
   secret_key = var.secret_key
+  aws_session_token = var.aws_session_token
 }
 
 module "vpc" {
@@ -14,6 +15,7 @@ module "vpc" {
   access_key       = var.access_key
   secret_key       = var.secret_key
   admin_key_public = var.admin_key_public
+  aws_session_token = var.aws_session_token
 }
 
 data "aws_ami" "centos" {
@@ -84,6 +86,7 @@ EOF
   vars = {
     admin_user       = var.admin_user
     admin_key_public = var.admin_key_public
+    aws_session_token = var.aws_session_token
   }
 }
 
