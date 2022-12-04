@@ -24,7 +24,7 @@ data "aws_ami" "centos" {
 
   filter {
     name   = "name"
-    values = ["CentOS7-cloudify-examples-image]
+    values = ["CentOS7-cloudify-examples-image"]
   }
 }
 
