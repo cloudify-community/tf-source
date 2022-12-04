@@ -19,21 +19,12 @@ module "vpc" {
 }
 
 data "aws_ami" "centos" {
-  owners      = ["125523088429"]
+  owners      = ["263721492972"]
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["CentOS 7*"]
-  }
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+    values = ["CentOS7-cloudify-examples-image]
   }
 }
 
