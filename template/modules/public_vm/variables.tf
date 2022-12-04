@@ -28,6 +28,11 @@ variable "secret_key" {
   description = "Secret key for AWS"
 }
 
+variable "token" {
+  type = string
+  description = "token"
+}
+
 variable "env_name" {
     type = string
     description = "Environment name"
