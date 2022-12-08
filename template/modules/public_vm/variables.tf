@@ -31,6 +31,7 @@ variable "secret_key" {
 variable "token" {
   type = string
   description = "token"
+  default = ""
 }
 
 variable "env_name" {

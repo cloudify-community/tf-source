@@ -31,6 +31,7 @@ variable "secret_key" {
 variable "token" {
   type = string
   description = "AWS Session Token"
+  default = ""
 }
 
 variable "aws_amis" {
